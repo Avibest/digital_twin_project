@@ -7,6 +7,18 @@ from scipy.signal import welch
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
+from pathlib import Path
+import zipfile
+import os
+
+# --- Ensure data_small folder exists on the server ---
+DATA_DIR = Path("data_small")
+ZIP_PATH = Path("data_small.zip")
+
+if ZIP_PATH.exists() and not DATA_DIR.exists():
+    with zipfile.ZipFile(ZIP_PATH, "r") as zf:
+        zf.extractall(".")   # this will recreate the data_small/ folder
+
 # ------------------------------
 #  CONFIG
 # ------------------------------
@@ -248,3 +260,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
